@@ -45,7 +45,7 @@ class AuthentificationController extends Controller
         if (User::count() === 1) {
             $user->assignRole('Admin');
         } else {
-            $user->assignRole('consultant');
+            $user->assignRole('Client');
         }
 
         Auth::login($user);
