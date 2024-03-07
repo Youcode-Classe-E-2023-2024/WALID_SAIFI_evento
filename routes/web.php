@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Admin.dashbord');
 });
 Route::get('/login',[AuthentificationController::class,'pagelogin'])->name('login');
 
