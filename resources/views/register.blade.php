@@ -45,6 +45,14 @@
                             <label for="password">Password:</label>
                             <input type="password" name="password" class="form-control" id="password" placeholder="Enter votre password">
                         </div>
+                        <div class="form-group mb-3">
+                            <label for="type_compte">Type de compte :</label>
+                            <select name="type_compte" class="form-control" id="type_compte">
+                                <option value="organisateur">Organisateur</option>
+                                <option value="client">Client</option>
+                            </select>
+                        </div>
+
 
                         <div class="form-group mb-3">
                             <label for="password_confirmation">Confirm Password:</label>
