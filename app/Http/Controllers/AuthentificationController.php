@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
+use Spatie\Permission\Models\Role;
 
 class AuthentificationController extends Controller
 {
@@ -25,32 +26,32 @@ class AuthentificationController extends Controller
 
     public function registerSave(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed'
+
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'type_compte' => 'required|string|in:organisateur,client',
         ]);
 
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $user = new User;
+        $user = new User();
         $user->name = $request->username;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $user->password = bcrypt($request->password);
+        $user->Roles = $request->type_compte;
 
-        if (User::count() === 1) {
-            $user->assignRole('Admin');
-        } else {
-            $user->assignRole('Client');
+
+        if (User::count() === 0) {
+            $user->Roles = 'admin';
         }
 
-        Auth::login($user);
-        return view('dashboard');
+        $user->save();
+
+
+        return redirect()->route('loginAction')->with('success', 'Votre compte a été créé avec succès. Veuillez vous connecter.');
     }
+
 
     public function loginAction()
     {
@@ -63,7 +64,7 @@ class AuthentificationController extends Controller
         if (auth()->attempt($formFields)) {
             request()->session()->regenerate();
         }
-        return redirect()->route('login');
+        return redirect()->route('');
     }
 
     public function show(string $id)
