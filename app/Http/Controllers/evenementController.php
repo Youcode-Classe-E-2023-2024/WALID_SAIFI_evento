@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,29 +10,35 @@ use Illuminate\Support\Facades\Auth;
 class evenementController extends Controller
 {
     public  function  index(){
-        return view('Organisateur.Ajouterevent');
+        $categories = Category::all();
+        return view('Organisateur.Ajouterevent', compact('categories'));
     }
+
+
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'titre' => 'required|string|max:255',
             'description' => 'required|string',
             'date' => 'required|date',
             'nombre_tickets' => 'required|integer',
             'prix' => 'required|numeric',
-            'localisation' => 'required|string', // Ajoutez une validation pour la localisation
+            'category' => 'required|numeric', // Assurez-vous que la catégorie est requise et numérique
+            'localisation' => 'required|string',
             'image' => 'nullable|image|max:2048',
         ]);
 
         $event = new Event();
-        $event->title = $request->title;
+        $event->title = $request->titre;
         $event->description = $request->description;
         $event->date = $request->date;
         $event->available_seats = $request->nombre_tickets;
         $event->price = $request->prix;
-        $event->location = $request->localisation; // Associez la localisation
+        $event->location = $request->localisation;
+        $event->category_id = $request->category; // Assurez-vous d'attribuer la valeur de la catégorie
         $event->user_id = Auth::id();
 
+        // Gestion de l'image
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('events_images', 'public');
             $event->image = $imagePath;
@@ -41,5 +48,7 @@ class evenementController extends Controller
 
         return redirect()->route('page.ajouter')->with('successEvenetAjouter', 'Événement créé avec succès.');
     }
+
+
 
 }
