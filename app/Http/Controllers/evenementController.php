@@ -105,6 +105,39 @@ class evenementController extends Controller
     }
 
 
+    public function destroy($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->delete();
+
+        return redirect()->route('evenements.fetch')->with('successEventDelete', 'Événement supprimé avec succès.');
+    }
+
+
+    public function indexHome()
+    {
+        $events = Event::all();
+        return view('home', compact('events'));
+    }
+
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query'); // Récupère le terme de recherche depuis le formulaire
+
+        // Effectuez la recherche dans votre modèle approprié
+        $results = Event::where('title', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->get();
+
+        // Retournez les résultats de la recherche à une vue appropriée
+        return view('search.results', [
+            'results' => $results,
+            'query' => $query, // Passer la valeur de $query à la vue
+        ]);
+    }
+
+
 
 
 
