@@ -37,14 +37,13 @@
                         @error('password')
                         <span class="text-danger small">{{ $message }}</span>
                         @enderror
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" value="remember" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">
-                                Remember Me
-                            </label>
-                        </div>
+
                         <button type="submit" name="login" class="btn btn-primary btn-block">Login</button>
                     </form>
+                    @if(session('error'))
+                        <span class="text-danger small">{{ session('error') }}</span>
+                    @endif
+
                 </div>
                 <div class="card-footer text-center">
                     <p class="mb-1">Forgot your password? <a href="{{route('foget.password')}}" class="text-primary">Reset Password</a></p>
@@ -54,6 +53,7 @@
         </div>
     </div>
 </div>
+
 
 
 </body>
