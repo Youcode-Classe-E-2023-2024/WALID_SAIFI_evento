@@ -123,19 +123,27 @@ class evenementController extends Controller
 
     public function search(Request $request)
     {
+        $events = []; // Définissez une valeur par défaut pour $events
+
         $query = $request->input('query'); // Récupère le terme de recherche depuis le formulaire
 
-        // Effectuez la recherche dans votre modèle approprié
-        $results = Event::where('title', 'like', '%' . $query . '%')
-            ->orWhere('description', 'like', '%' . $query . '%')
-            ->get();
+        if ($query) {
+            // Effectuez la recherche dans votre modèle approprié
+            $results = Event::where('title', 'like', '%' . $query . '%')
+                ->orWhere('description', 'like', '%' . $query . '%')
+                ->get();
+
+            $events = $results; // Attribuez les résultats à $events si une recherche a été effectuée
+        }
 
         // Retournez les résultats de la recherche à une vue appropriée
-        return view('search.results', [
-            'results' => $results,
+        return view('home', [
+            'events' => $events, // Assurez-vous que $events est toujours défini
             'query' => $query, // Passer la valeur de $query à la vue
         ]);
     }
+
+
 
 
 
