@@ -37,10 +37,11 @@ Route::get('/forget_password', [ForgetpasswordController::class, 'fogetpassword'
 Route::post('/forget_password', [ForgetpasswordController::class, 'fogetpasswordPost'])->name('foget.passwordPost');
 Route::get('/rest_password/{token}', [ForgetpasswordController::class, 'rest_password'])->name('rest.password');
 Route::post('/rest_password', [ForgetpasswordController::class, 'rest_passwordPost'])->name('rest.passwordPost');
+Route::post('/deconnecter', [AuthentificationController::class, 'destroy'])->name('logout');
 /*-------------------------------------------------Admin*-------------------------------------------------------------*/
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashbord', [adminrController::class, 'index'])->name('admin.dashbord');
-    Route::post('/deconnecter', [AuthentificationController::class, 'destroy'])->name('logout');
+
     Route::get('/categoriser/index', [CategoryController::class, 'index'])->name('afficheCat');
     Route::get('/ajoutercatgorier', [CategoryController::class, 'ajouter'])->name('ajouter.cat');
     Route::post('/catgorierajouter', [CategoryController::class, 'store'])->name('Category.stort');
@@ -57,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/organisateur/dashbord',[OrganisateurController::class, 'index'])->name('org.dashbord');
     Route::get('/Ajouterevent',[evenementController::class, 'index'])->name('page.ajouter');
     Route::post('/ajouteEvent',[evenementController::class, 'store'])->name('events.store');
+
+    Route::get('/evenements', [EvenementController::class, 'fetchEvents'])->name('evenements.fetch');
 });
 
 
