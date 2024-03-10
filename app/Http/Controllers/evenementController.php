@@ -49,7 +49,7 @@ class evenementController extends Controller
 
         $event->save();
 
-        return redirect()->route('page.ajouter')->with('successEvenetAjouter', 'Événement créé avec succès.');
+        return redirect()->route('evenements.fetch')->with('successEvenetAjouter', 'Événement créé avec succès.');
     }
     public function fetchEvents()
     {
@@ -82,6 +82,7 @@ class evenementController extends Controller
             'image.image' => 'Le fichier doit être une image.',
             'image.max' => 'La taille maximale de l\'image est de 2048 kilo-octets.',
         ]);
+       dd($request);
 
         $event = Event::findOrFail($id);
 
@@ -92,7 +93,7 @@ class evenementController extends Controller
         $event->price = $request->prix;
         $event->location = $request->localisation;
 
-       
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('events_images', 'public');
             $event->image = $imagePath;
