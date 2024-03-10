@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class OrganisateurController extends Controller
 {
-    public  
+    public function  index(){
+        return view('Organisateur.dashbord');
+    }
+
 }
