@@ -46,9 +46,17 @@
 
     <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Sign out</a>
+            <a class="nav-link px-3" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                Sign out
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
     </div>
+
 </header>
 
 <div class="container-fluid">
@@ -65,19 +73,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="file"></span>
-                            Orders
+                           Gestion des catégorisers
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="shopping-cart"></span>
-                            Products
+                            Gestion des événements
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span data-feather="users"></span>
-                            Customers
+                            Gestion des utilisateur
                         </a>
                     </li>
                     <li class="nav-item">
