@@ -116,11 +116,12 @@ class evenementController extends Controller
 
     public function indexHome()
     {
-        $events = Event::all();
+        $events = Event::paginate(6);
         $categories = Category::all();
 
         return view('home', compact('events', 'categories'));
     }
+
 
 
 
