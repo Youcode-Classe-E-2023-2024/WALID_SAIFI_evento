@@ -20,11 +20,13 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        Category::create([
-            'name' => $request->name,
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+        ], [
+            'name.unique' => 'La catégorie existe déjà.',
         ]);
 
-        return redirect()->route('ajouter.cat')->with('success', 'Catégorie créée avec succès.');
+        return redirect()->route('afficheCat')->with('successAjouter', 'Catégorie créée avec succès.');
     }
 
     public function edit($id)
