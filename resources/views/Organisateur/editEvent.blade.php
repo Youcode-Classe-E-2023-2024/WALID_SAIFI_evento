@@ -11,7 +11,8 @@
                         <div class="card bg-dark text-white">
                             <div class="card-body">
                                 <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
+
+                                @csrf
                                     @method('PUT')
                                     <div class="mb-3">
                                         <label for="titre" class="form-label">Titre de l'événement</label>
