@@ -35,6 +35,18 @@
                                         <label for="prix" class="form-label">Prix du ticket</label>
                                         <input type="number" class="form-control" id="prix" name="prix">
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="category" class="form-label">Catégorie de l'événement</label>
+                                        <select class="form-control" id="category" name="category">
+                                            <option value="">Sélectionnez une catégorie</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
                                     <div class="mb-3">
                                         <label for="image" class="form-label">Image de l'événement</label>
                                         <input type="file" class="form-control" id="image" name="image">
