@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [EvenementController::class, 'indexHome'])->name('home');
-Route::get('/search', [EvenementController::class, 'search'])->name('search');
+Route::get('/', [evenementController::class, 'indexHome'])->name('home');
+Route::get('/search', [evenementController::class, 'search'])->name('search');
+Route::get('/events/{id}', [evenementController::class, 'show'])->name('events.show');
 
 
 Route::get('/ajouter', function () {
