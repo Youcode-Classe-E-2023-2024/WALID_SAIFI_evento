@@ -55,17 +55,30 @@ class AuthentificationController extends Controller
 
     public function loginAction()
     {
-        //dd(request());
+
         $formFields = request()->validate([
-            "email" => 'required',
+            "email" => 'required|email',
             "password" => 'required'
         ]);
+        // dd($formFields);
 
         if (auth()->attempt($formFields)) {
             request()->session()->regenerate();
+
+            $user = auth()->user();
+
+            if ($user->Roles === 'organisateur') {
+                return redirect()->route('org.dashbord');
+            } elseif ($user->Roles === 'client') {
+                return redirect()->route('home');
+            } elseif ($user->Roles === 'admin') {
+                return redirect()->route('admin.dashbord');
+            }
         }
-        return redirect()->route('');
+
+        return redirect()->route('login')->with('error', 'Identifiants incorrects. Veuillez réessayer.');
     }
+
 
     public function show(string $id)
     {
