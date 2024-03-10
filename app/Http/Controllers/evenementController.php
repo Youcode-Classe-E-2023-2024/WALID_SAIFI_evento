@@ -13,6 +13,9 @@ class evenementController extends Controller
         $categories = Category::all();
         return view('Organisateur.Ajouterevent', compact('categories'));
     }
+    public function evenment(){
+        return view('Organisateur.evenements');
+    }
 
 
     public function store(Request $request)
@@ -47,6 +50,11 @@ class evenementController extends Controller
         $event->save();
 
         return redirect()->route('page.ajouter')->with('successEvenetAjouter', 'Événement créé avec succès.');
+    }
+    public function fetchEvents()
+    {
+        $events = Event::where('user_id', auth()->id())->get(); // Récupérer les événements de l'utilisateur actuellement connecté
+        return view('Organisateur.evenements', compact('events'));
     }
 
 
