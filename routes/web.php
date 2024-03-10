@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [EvenementController::class, 'indexHome'])->name('home');
+Route::get('/search', [EvenementController::class, 'search'])->name('search');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+
 Route::get('/ajouter', function () {
     return view('Admin.Ajouterevent');
 });
@@ -62,8 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/evenements', [EvenementController::class, 'fetchEvents'])->name('evenements.fetch');
     Route::get('/evenements/{id}/edit', [EvenementController::class, 'edit'])->name('events.edit');
     Route::put('/evenements/{id}/update', [EvenementController::class, 'update'])->name('events.update');
-
-
+    Route::delete('/evenements/{id}/delete', [EvenementController::class, 'destroy'])->name('events.destroy');
 
 
 });
