@@ -13,7 +13,7 @@
                     <div class="col-md-8">
                         <div class="card bg-dark text-white">
                             <div class="card-body">
-                                <form action="" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="titre" class="form-label">Titre de l'événement</label>
@@ -39,6 +39,34 @@
                                         <label for="image" class="form-label">Image de l'événement</label>
                                         <input type="file" class="form-control" id="image" name="image">
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="localisation" class="form-label">Localisation de l'événement</label>
+                                        <select class="form-control" id="localisation" name="localisation">
+                                            <option value="">Sélectionnez une ville</option>
+                                            <option value="Agadir">Agadir</option>
+                                            <option value="Casablanca">Casablanca</option>
+                                            <option value="Fès">Fès</option>
+                                            <option value="Marrakech">Marrakech</option>
+                                            <option value="Rabat">Rabat</option>
+                                            <option value="Tanger">Tanger</option>
+                                            <option value="Meknès">Meknès</option>
+                                            <option value="Oujda">Oujda</option>
+                                            <option value="Salé">Salé</option>
+                                            <option value="Kénitra">Kénitra</option>
+                                            <option value="Témara">Témara</option>
+                                            <option value="Beni Mellal">Beni Mellal</option>
+                                            <option value="Tétouan">Tétouan</option>
+                                            <option value="El Jadida">El Jadida</option>
+                                            <option value="Nador">Nador</option>
+                                            <option value="Mohammedia">Mohammedia</option>
+                                            <option value="Khouribga">Khouribga</option>
+                                            <option value="Settat">Settat</option>
+                                            <option value="Errachidia">Errachidia</option>
+                                            <option value="Ouarzazate">Ouarzazate</option>
+
+                                        </select>
+                                    </div>
+
                                     <button type="submit" class="btn btn-primary">Ajouter l'événement</button>
                                 </form>
                             </div>
