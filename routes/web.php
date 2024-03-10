@@ -38,10 +38,17 @@ Route::post('/rest_password', [ForgetpasswordController::class, 'rest_passwordPo
 /*-------------------------------------------------Admin*-------------------------------------------------------------*/
 Route::get('/admin/dashbord',[adminrController::class, 'index'])->name('admin.dashbord');
 Route::post('/deconneter',[AuthentificationController::class, 'destroy'])->name('logout');
+Route::get('/categoriser/index',[CategoryController::class, 'index'])->name('afficheCat');
 Route::get('/ajoutercatgorier',[CategoryController::class, 'ajouter'])->name('ajouter.cat');
+Route::post('/catgorierajouter',[CategoryController::class, 'store'])->name('Category.stort');
+Route::delete('/deletCategory/{id}', [CategoryController::class, 'destroy'])->name('delete.cat');
+Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('edit.cat');
+Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('update.cat');
+
 
 
 
 
 /*----------------------------                 Oraganisateur                                        ----------------*/
 Route::get('/organisateur/dashbord',[OrganisateurController::class, 'index'])->name('org.dashbord');
+
