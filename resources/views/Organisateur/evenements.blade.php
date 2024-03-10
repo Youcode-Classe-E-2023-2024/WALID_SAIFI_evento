@@ -18,11 +18,16 @@
                                             <p class="card-text">Date de création: {{ $event->created_at->format('d/m/Y') }}</p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                                    <a href="{{ route('events.edit', $event->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                    <form action="{{ route('events.destroy', $event->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement?')">Supprimer</button>
+                                                    </form>
+                                                    <a href="{{ route('events.edit', $event->id) }}" class="btn btn-sm btn-outline-secondary">Éditer</a>
                                                 </div>
-                                                <small class="text-muted">9 mins</small>
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
