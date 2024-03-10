@@ -16,6 +16,15 @@
                         </div>
                     @endif
 
+                    @if(session()->has('successAjouter'))
+                        <div class="alert alert-success" style="max-width: 700px;">
+                            {{ session()->get('successAjouter') }}
+                        </div>
+                    @endif
+                    <div style="margin-bottom: 10px;">
+                        <a href="{{ route('ajouter.cat') }}" class="btn btn-success">Ajouter une catégorie</a>
+                    </div>
+
 
                     <table class="table table-dark">
                     <thead>
