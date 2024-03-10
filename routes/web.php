@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\adminrController;
 use App\Http\Controllers\AuthentificationController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Controllers\OrganisateurController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,7 @@ Route::post('/rest_password', [ForgetpasswordController::class, 'rest_passwordPo
 /*-------------------------------------------------Admin*-------------------------------------------------------------*/
 Route::get('/admin/dashbord',[adminrController::class, 'index'])->name('admin.dashbord');
 Route::post('/deconneter',[AuthentificationController::class, 'destroy'])->name('logout');
+Route::get('/ajoutercatgorier',[CategoryController::class, 'ajouter'])->name('ajouter.cat');
 
 
 
