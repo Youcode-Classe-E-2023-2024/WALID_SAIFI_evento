@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Album example · Bootstrap v5.0</title>
+    <title>Gestion d'événements</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
@@ -55,9 +55,17 @@
                         </li>
                     </ul>
                     <form action="{{ route('search') }}" method="GET" class="d-flex">
-                        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="form-control me-2" type="search" name="query" placeholder="Recherche" aria-label="Recherche">
+                        <select class="form-select" name="category">
+                            <option value="" selected>Toutes les catégories</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-outline-success" type="submit">Rechercher</button>
                     </form>
+
+
 
                 </div>
             </div>
@@ -80,6 +88,13 @@
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @if($events->isEmpty())
+                    <div class="col">
+                        <div class="alert alert-danger" role="alert">
+                            Aucun événement trouvé pour "{{ $query }}".
+                        </div>
+                    </div>
+                @else
 
 
                 @foreach($events as $event)
@@ -101,6 +116,7 @@
                         </div>
                     </div>
                 @endforeach
+                @endif
             </div>
         </div>
     </div>
