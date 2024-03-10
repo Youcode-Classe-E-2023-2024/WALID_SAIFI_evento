@@ -80,7 +80,6 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Gestion d'événements</h1>
-                <p class="lead text-muted">Découvrez notre plateforme de gestion d'événements qui simplifie l'organisation, la promotion et la gestion de tous vos événements. Que vous organisiez des conférences, des concerts, des festivals ou d'autres types d'événements, notre solution vous offre les outils nécessaires pour réussir. Ne perdez plus de temps et gérez vos événements de manière efficace dès aujourd'hui.</p>
             </div>
         </div>
     </section>
@@ -120,6 +119,11 @@
             </div>
         </div>
     </div>
+    <!-- Ajoutez ceci à la fin de votre contenu principal -->
+    <div class="d-flex justify-content-center">
+        {{ $events->links() }}
+    </div>
+
 
 
 </main>
