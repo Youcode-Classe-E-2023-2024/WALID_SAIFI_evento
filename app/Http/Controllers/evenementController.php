@@ -117,31 +117,43 @@ class evenementController extends Controller
     public function indexHome()
     {
         $events = Event::all();
-        return view('home', compact('events'));
+        $categories = Category::all();
+
+        return view('home', compact('events', 'categories'));
     }
+
 
 
     public function search(Request $request)
     {
-        $events = []; // Définissez une valeur par défaut pour $events
+        $events = [];
+        $query = $request->input('query');
+        $category = $request->input('category');
 
-        $query = $request->input('query'); // Récupère le terme de recherche depuis le formulaire
 
-        if ($query) {
-            // Effectuez la recherche dans votre modèle approprié
-            $results = Event::where('title', 'like', '%' . $query . '%')
-                ->orWhere('description', 'like', '%' . $query . '%')
-                ->get();
+        $results = Event::query();
 
-            $events = $results; // Attribuez les résultats à $events si une recherche a été effectuée
+        if ($category) {
+            $results->where('category_id', $category);
         }
 
-        // Retournez les résultats de la recherche à une vue appropriée
+
+        if ($query) {
+            $results->where('title', 'like', '%' . $query . '%');
+        }
+
+
+        $events = $results->get();
+
+
         return view('home', [
-            'events' => $events, // Assurez-vous que $events est toujours défini
-            'query' => $query, // Passer la valeur de $query à la vue
+            'events' => $events,
+            'query' => $query,
+            'categories' => Category::all(),
         ]);
     }
+
+
 
 
 
