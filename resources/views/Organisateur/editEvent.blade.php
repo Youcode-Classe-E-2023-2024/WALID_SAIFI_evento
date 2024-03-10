@@ -4,64 +4,41 @@
     <div class="container-fluid" style="padding: 50px;">
         <div class="row">
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <h1 class="text-center" style="margin-bottom: 30px;">Modifier un événement</h1>
+                <h1 class="text-center" style="margin-bottom: 30px;">Mes événements</h1>
 
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card bg-dark text-white">
-                            <div class="card-body">
-                                <form action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
+                <div class="album py-5 bg-light">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                            @foreach($events as $event)
+                                <div class="col">
+                                    <div class="card shadow-sm">
+                                        <img src="{{ asset('storage/' . $event->image) }}" class="bd-placeholder-img card-img-top" alt="Your Image" width="100%" height="225" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <div class="card-body">
+                                            <p class="card-text">{{ $event->title }}</p>
+                                            <p class="card-text">Date de création: {{ $event->created_at->format('d/m/Y') }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <form action="{{ route('events.destroy', $event->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement?')">Supprimer</button>
+                                                    </form>
+                                                    <a href="{{ route('events.edit', $event->id) }}" class="btn btn-sm btn-outline-secondary">Éditer</a>
+                                                </div>
 
-                                @csrf
-                                    @method('PUT')
-                                    <div class="mb-3">
-                                        <label for="titre" class="form-label">Titre de l'événement</label>
-                                        <input type="text" class="form-control @error('titre') is-invalid @enderror" id="titre" name="titre" value="{{ $event->title }}">
-                                        @error('titre')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ $event->description }}</textarea>
-                                        @error('description')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="date" class="form-label">Date</label>
-                                        <input type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date" value="{{ $event->date }}">
-                                        @error('date')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="nombre_tickets" class="form-label">Nombre de tickets disponibles</label>
-                                        <input type="number" class="form-control @error('nombre_tickets') is-invalid @enderror" id="nombre_tickets" name="nombre_tickets" value="{{ $event->available_seats }}">
-                                        @error('nombre_tickets')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="prix" class="form-label">Prix du ticket</label>
-                                        <input type="number" class="form-control @error('prix') is-invalid @enderror" id="prix" name="prix" value="{{ $event->price }}">
-                                        @error('prix')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="image" class="form-label">Image de l'événement</label>
-                                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
-                                        @error('image')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-                                </form>
-                            </div>
+                                </div>
+                            @endforeach
+                                {{ $events->links() }}
                         </div>
                     </div>
                 </div>
+
+
+
             </main>
         </div>
     </div>
