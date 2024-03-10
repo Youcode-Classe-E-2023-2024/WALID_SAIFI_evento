@@ -121,6 +121,11 @@ class evenementController extends Controller
 
         return view('home', compact('events', 'categories'));
     }
+    public function show($id)
+    {
+        $event = Event::findOrFail($id);
+        return view('event', compact('event'));
+    }
 
 
 
