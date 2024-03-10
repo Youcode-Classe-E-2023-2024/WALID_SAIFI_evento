@@ -71,20 +71,20 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('afficheCat')}}">
+                        <a class="nav-link" href="{{route('page.ajouter')}}">
                             <span data-feather="file"></span>
-                            Gestion de mes événements
+                            Ajouter un événement
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{route('evenements.fetch')}}">
                             <span data-feather="users"></span>
-                            Gestion de mon profiel
+                            Afficher mes événements
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="">
                             <span data-feather="bar-chart-2"></span>
                             Reports
                         </a>
