@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/ajouter', function () {
     return view('Admin.Ajouterevent');
 });
@@ -36,6 +36,7 @@ Route::get('/rest_password/{token}', [ForgetpasswordController::class, 'rest_pas
 Route::post('/rest_password', [ForgetpasswordController::class, 'rest_passwordPost'])->name('rest.passwordPost');
 /*-------------------------------------------------Admin*-------------------------------------------------------------*/
 Route::get('/admin/dashbord',[adminrController::class, 'index'])->name('admin.dashbord');
+Route::post('/deconneter',[AuthentificationController::class, 'destroy'])->name('logout');
 
 
 
