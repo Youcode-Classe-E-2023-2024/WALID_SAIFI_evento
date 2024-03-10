@@ -56,6 +56,55 @@ class evenementController extends Controller
         $events = Event::where('user_id', auth()->id())->get(); // Récupérer les événements de l'utilisateur actuellement connecté
         return view('Organisateur.evenements', compact('events'));
     }
+    public function edit($id)
+    {
+        $event = Event::findOrFail($id); // Récupérer l'événement par son ID
+        return view('Organisateur.editEvent', compact('event'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'titre' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'nombre_tickets' => 'required|integer',
+            'prix' => 'required|numeric',
+            'localisation' => 'required|string',
+            'image' => 'nullable|image|max:2048',
+        ], [
+            'titre.required' => 'Le titre de l\'événement est requis.',
+            'description.required' => 'La description de l\'événement est requise.',
+            'date.required' => 'La date de l\'événement est requise.',
+            'nombre_tickets.required' => 'Le nombre de tickets disponibles est requis.',
+            'prix.required' => 'Le prix du ticket est requis.',
+            'localisation.required' => 'La localisation de l\'événement est requise.',
+            'image.image' => 'Le fichier doit être une image.',
+            'image.max' => 'La taille maximale de l\'image est de 2048 kilo-octets.',
+        ]);
+
+        $event = Event::findOrFail($id);
+
+        $event->title = $request->titre;
+        $event->description = $request->description;
+        $event->date = $request->date;
+        $event->available_seats = $request->nombre_tickets;
+        $event->price = $request->prix;
+        $event->location = $request->localisation;
+
+       
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('events_images', 'public');
+            $event->image = $imagePath;
+        }
+
+        $event->save();
+
+        return redirect()->route('evenements.fetch')->with('successEvenetAjouter', 'Événement mis à jour avec succès.');
+    }
+
+
+
 
 
 
