@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminrController;
 use App\Http\Controllers\AuthentificationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\evenementController;
 use App\Http\Controllers\ForgetpasswordController;
 use App\Http\Controllers\OrganisateurController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/deletCategory/{id}', [CategoryController::class, 'destroy'])->name('delete.cat');
     Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])->name('edit.cat');
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('update.cat');
+
 });
 
 
@@ -53,6 +55,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 /*----------------------------                 Oraganisateur                                        ----------------*/
 Route::middleware(['auth'])->group(function () {
     Route::get('/organisateur/dashbord',[OrganisateurController::class, 'index'])->name('org.dashbord');
+    Route::get('/Ajouterevent',[evenementController::class, 'index'])->name('page.ajouter');
+    Route::post('/ajouteEvent',[evenementController::class, 'store'])->name('events.store');
 });
 
 
