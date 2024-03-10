@@ -60,6 +60,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ajouteEvent',[evenementController::class, 'store'])->name('events.store');
 
     Route::get('/evenements', [EvenementController::class, 'fetchEvents'])->name('evenements.fetch');
+    Route::get('/evenements/{id}/edit', [EvenementController::class, 'edit'])->name('events.edit');
+    Route::put('/evenements/{id}/update', [evenementController::class, 'update'])->name('events.update');
+
+
+
 });
 
 
