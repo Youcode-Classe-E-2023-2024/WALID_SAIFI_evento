@@ -61,7 +61,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/evenements', [EvenementController::class, 'fetchEvents'])->name('evenements.fetch');
     Route::get('/evenements/{id}/edit', [EvenementController::class, 'edit'])->name('events.edit');
-    Route::put('/evenements/{id}/update', [evenementController::class, 'update'])->name('events.update');
+    Route::put('/evenements/{id}/update', [EvenementController::class, 'update'])->name('events.update');
+
 
 
 
