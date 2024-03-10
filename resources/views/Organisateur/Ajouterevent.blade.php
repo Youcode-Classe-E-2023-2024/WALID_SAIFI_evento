@@ -1,4 +1,4 @@
-@extends('Admin.layout')
+@extends('Organisateur.layout')
 
 @section('title', 'Ajouter un événement')
 
