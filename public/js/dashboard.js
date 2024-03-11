@@ -1,53 +1,55 @@
 /* globals Chart:false, feather:false */
-
 (function () {
-  'use strict'
+    'use strict'
 
-  feather.replace({ 'aria-hidden': 'true' })
+    feather.replace({ 'aria-hidden': 'true' })
 
-  // Graphs
-  var ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ],
-      datasets: [{
-        data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: false
-          }
-        }]
-      },
-      legend: {
-        display: false
-      }
-    }
-  })
-})()
+    // Récupérer les données des catégories avec le nombre d'événements associés
+    $.ajax({
+        url: '/categories-events',
+        method: 'GET',
+        success: function(response) {
+            var categories = response;
+            var labels = [];
+            var data = [];
+
+            // Parcourir les catégories et récupérer les noms et le nombre d'événements
+            categories.forEach(function(category) {
+                labels.push(category.name);
+                data.push(category.event_count);
+            });
+
+            // Construire le graphique avec les données récupérées
+            var ctx = document.getElementById('myChart');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nombre d\'événements',
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+
+})();
