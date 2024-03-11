@@ -159,6 +159,17 @@ class evenementController extends Controller
         ]);
     }
 
+    public function categoriesEvents()
+    {
+        $categories = Category::select('id', 'name', DB::raw('COUNT(events.id) as event_count'))
+            ->leftJoin('events', 'categories.id', '=', 'events.category_id')
+            ->groupBy('categories.id')
+            ->orderBy('categories.id')
+            ->get();
+
+        return response()->json($categories);
+    }
+
 
 
 
