@@ -56,6 +56,8 @@
             </div>
         </nav>
 
+        <h1 class="text-center" style="margin-bottom: 30px;">{{ $event->title }}</h1>
+
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5"><!-- Utilisez cette div pour afficher l'image -->
                 <div class="d-flex align-items-center">
@@ -71,14 +73,17 @@
         <div class="row align-items-md-stretch"><!--est dans cette dive afficher tout les infrmation de evenement plus un buutton de acchte tiket de evenet an finet de div-->
             <div class="col-md-10">
                 <div class="h-100 p-5 text-white bg-dark rounded-3">
-                    <h2>Change the background</h2>
-                    <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
-                    <button class="btn btn-outline-light" type="button">Example button</button>
+                    <h2>Titre: {{ $event->title }}</h2>
+                    <p>Description: {{ $event->description }}</p>
+                    <p>Date: {{ $event->date }}</p>
+                    <p>Lieu: {{ $event->location }}</p>
+                    <!-- Ajoutez d'autres informations de l'événement ici selon vos besoins -->
                 </div>
             </div>
 
 
-        <footer class="pt-3 mt-4 text-muted border-top">
+
+            <footer class="pt-3 mt-4 text-muted border-top">
             &copy; 2021
         </footer>
     </div>
