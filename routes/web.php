@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [evenementController::class, 'indexHome'])->name('home');
 Route::get('/search', [evenementController::class, 'search'])->name('search');
 Route::get('/events/{id}', [evenementController::class, 'show'])->name('events.show');
+Route::get('/categories-events', [evenementController::class, 'categoriesEvents'])->name('categories-events');
 
 
 Route::get('/ajouter', function () {
